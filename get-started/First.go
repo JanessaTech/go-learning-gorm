@@ -14,24 +14,27 @@ type Product struct {
 	Price uint
 }
 
-//sudo docker run -p 3306:3306 --name mysql \
-//-v /home/jane/docker/mysql/data:/data \
-//-e MYSQL_ROOT_PASSWORD=123456 \
-//--restart=always \
-//-itd mysql:5.7.19
-
-//sudo docker exec -it mysql /bin/bash
-//mysql -uroot -p123456
-
-//show databases;
-//CREATE DATABASE gorm_demo;
-//CREATE USER 'gorm'@'%' IDENTIFIED BY 'gorm_demo';
-//SELECT USER, host from mysql.user;
-//GRANT ALL on *.* TO 'gorm'@'%';
-//GRANT super on *.* to 'gorm'@'%';
-//GRANT show view on *.* to 'gorm'@'%';
-
+// sudo docker run -p 3306:3306 --name mysql
+// -v /home/jane/docker/mysql/data:/data
+// -e MYSQL_ROOT_PASSWORD=123456
+// --restart=always
+// -itd mysql:5.7.19
+//
+// sudo docker exec -it mysql /bin/bash
+//
+// mysql -uroot -p123456
+//
+// show databases;
+//
+// CREATE DATABASE gorm_demo;
+// CREATE USER 'gorm'@'%' IDENTIFIED BY 'gorm_demo';
+// SELECT USER, host from mysql.user;
+// GRANT ALL on *.* TO 'gorm'@'%';
+// GRANT super on *.* to 'gorm'@'%';
+// GRANT show view on *.* to 'gorm'@'%';
+//
 // mysql -ugorm -pgorm_demo gorm_demo
+//
 // show tables
 func FirstGormDemo() {
 	dsn := "gorm:gorm_demo@tcp(192.168.0.200:3306)/gorm_demo?charset=utf8mb4&parseTime=True&loc=Local"

@@ -1,9 +1,10 @@
 package main
 
 import (
-	getstarted "github.com/hi-supergirl/go-learning-gorm/get-started"
+	crud "github.com/hi-supergirl/go-learning-gorm/CRUD"
 )
 
 func main() {
-	getstarted.FirstGormDemo()
+	//getstarted.FirstGormDemo()
+	crud.Create()
 }
