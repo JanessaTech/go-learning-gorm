@@ -6,5 +6,5 @@ import (
 
 func main() {
 	//getstarted.FirstGormDemo()
-	crud.Create()
+	crud.Main()
 }
