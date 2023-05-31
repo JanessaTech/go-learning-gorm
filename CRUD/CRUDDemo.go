@@ -160,6 +160,128 @@ func QueryByCondition() {
 	fmt.Println("result.Error", result.Error)
 }
 
+func SimpleUpdate() {
+	db, err := getDB()
+	if err != nil {
+		return
+	}
+
+	customer := Customer{}
+	db.First(&customer)
+	fmt.Println("Before updated. customer:", customer)
+	customer.Name = "JanessaTechUpdated"
+	result := db.Save(&customer)
+	fmt.Println("After updated. customer =", customer)
+	fmt.Println("result.RowsAffected =", result.RowsAffected)
+	fmt.Println("result.Error", result.Error)
+
+}
+
+func BatchUpdates() {
+	db, err := getDB()
+	if err != nil {
+		return
+	}
+
+	result := db.Model(&Customer{}).Where("id IN ?", []int{11, 12}).Updates(Customer{Name: "demo"})
+	fmt.Println("result.RowsAffected =", result.RowsAffected)
+	fmt.Println("result.Error", result.Error)
+}
+
+func EnableGlobalUpdates() {
+	db, err := getDB()
+	if err != nil {
+		return
+	}
+	result := db.Session(&gorm.Session{AllowGlobalUpdate: true}).Model(&Customer{}).Updates(Customer{Name: "demo2"})
+	fmt.Println("result.RowsAffected =", result.RowsAffected)
+	fmt.Println("result.Error", result.Error)
+}
+
+func RawSqlForQuery() {
+	db, err := getDB()
+	if err != nil {
+		return
+	}
+	var customer Customer
+	result := db.Raw("select * from customers where id = ?", 10).Scan(&customer)
+	fmt.Println("customer=", customer)
+	fmt.Println("result.RowsAffected =", result.RowsAffected)
+	fmt.Println("result.Error", result.Error)
+}
+
+func RawSqlForUpdates() {
+	db, err := getDB()
+	if err != nil {
+		return
+	}
+	result := db.Exec("update customers set name = ? where id = ?", "demo3", 10)
+	fmt.Println("result.RowsAffected =", result.RowsAffected)
+	fmt.Println("result.Error", result.Error)
+}
+
+func DryRun() {
+	db, err := getDB()
+	if err != nil {
+		return
+	}
+
+	var customer Customer
+	stm := db.Session(&gorm.Session{DryRun: true}).First(&customer).Statement
+	fmt.Println(stm.SQL.String())
+	fmt.Println(stm.Vars)
+}
+
+func ToSQL() {
+	db, err := getDB()
+	if err != nil {
+		return
+	}
+	sql := db.ToSQL(func(tx *gorm.DB) *gorm.DB {
+		return tx.Model(&Customer{}).Where("id IN ?", []int{11, 12}).Updates(Customer{Name: "demo"})
+	})
+	fmt.Println(sql)
+}
+
+// Quick summary abour CRUD:
+//
+// db *gorm.DB
+//
+// db.Create(...)
+//
+// db.First(..)
+//
+// db.Find(..)
+//
+// db.Where(..)
+//
+// db.Save(...)
+//
+// db.Model(..).Where(..).Updates(..)
+//
+// db.Session(&gorm.Session{..}).Model(..)
+//
+// db.Table(..) // eg: db.Table("users as u")
+//
+// db.Raw(..)  //RawSql
+//
+// db.Exec(..) //RawSql
+//
+// db.Session(&gorm.Session{DryRun: true})  //for dry run
+//
+// print sql
+//
+// stm := db.Session(&gorm.Session{DryRun: true}).First(&customer).Statement
+//
+// fmt.Println(stm.SQL.String())
+//
+// similar to dry run
+//
+//	sql := db.ToSQL(func(tx *gorm.DB) *gorm.DB {
+//			return tx.Model(&Customer{}).Where("id IN ?", []int{11, 12}).Updates(Customer{Name: "demo"})
+//		})
+//
+// fmt.Println(sql)
 func Main() {
 	// For create
 	//Insert()
@@ -169,6 +291,18 @@ func Main() {
 	// For query
 	//SimpleQuery()
 	//QueryAll()
-	QueryByCondition()
+	//QueryByCondition()
+
+	//For update
+	//SimpleUpdate()
+	//BatchUpdates()
+	//EnableGlobalUpdates()
+
+	//raw sql
+	//RawSqlForQuery()
+	//RawSqlForUpdates()
+
+	//DryRun()
+	ToSQL()
 
 }
