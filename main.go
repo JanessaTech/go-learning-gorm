@@ -1,10 +1,11 @@
 package main
 
 import (
-	crud "github.com/hi-supergirl/go-learning-gorm/CRUD"
+	associations "github.com/hi-supergirl/go-learning-gorm/Associations"
 )
 
 func main() {
 	//getstarted.FirstGormDemo()
-	crud.Main()
+	//crud.Main()
+	associations.HasOneDemo()
 }

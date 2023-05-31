@@ -96,22 +96,6 @@ func MultipleInsert() {
 	fmt.Println("result.RowsAffected =", result.RowsAffected)
 }
 
-func InsertWithAssociation() {
-	db, err := getDB()
-	if err != nil {
-		return
-	}
-	custom := Customer{Name: "JanessaTech4",
-		Age:      34,
-		Birthday: time.Now(),
-		//CreditCard: CreditCard{Number: "411111111111"}
-	}
-	result := db.Create(&custom)
-	fmt.Println("result.Error =", result.Error)
-	fmt.Println("result.RowsAffected =", result.RowsAffected)
-
-}
-
 func SimpleQuery() {
 	db, err := getDB()
 	if err != nil {
