@@ -15,18 +15,12 @@ type Customer struct {
 	Name  string `gorm:"column:name;default:JanessaTech"`
 	Email string `gorm:"column:email"`
 	Age   uint8  `gorm:"column:age;default:10"` // provided default value for age
-	//CreditCard   CreditCard
+
 	Birthday     time.Time      `gorm:"column:birthday"`
 	MemberNumber sql.NullString `gorm:"column:member_number"`
 	ActivatedAt  sql.NullTime   `gorm:"column:activated_at"`
 	CreatedAt    time.Time      `gorm:"column:created_at"`
 	UpdatedAt    time.Time      `gorm:"column:updated_at"`
-}
-
-type CreditCard struct {
-	gorm.Model
-	Number string `gorm:"column:number"`
-	UserID uint   `gorm:"column:user_id"`
 }
 
 func getDB() (*gorm.DB, error) {
