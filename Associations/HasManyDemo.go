@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/hi-supergirl/go-learning-gorm/Associations/model"
+	"gorm.io/gorm"
 )
 
 func HasManyGetAll() error {
@@ -13,6 +14,8 @@ func HasManyGetAll() error {
 		return err
 	}
 	var teachers []model.Teacher
+	stm := db.Session(&gorm.Session{DryRun: true}).Model(&model.Teacher{}).Preload("Students").Find(&teachers).Statement
+	fmt.Println(stm.SQL.String())
 	result := db.Model(&model.Teacher{}).Preload("Students").Find(&teachers)
 	fmt.Println("result.Error=", result.Error)
 	fmt.Println("result.RowsAffected=", result.RowsAffected)
@@ -121,12 +124,12 @@ func DeleteAssociationsInReality() error {
 }
 
 func HasManyDemo() {
-	//HasManyGetAll()
+	HasManyGetAll()
 	//HasManyCreate()
 	//HasManyUpdate()
 	//FindAssociationsForOneMany()
 	//AppendAssociations()
 	//ReplaceAssociations()
 	//DeleteAssociations()
-	DeleteAssociationsInReality()
+	//DeleteAssociationsInReality()
 }
