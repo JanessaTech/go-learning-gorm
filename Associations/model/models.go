@@ -54,7 +54,6 @@ type Teacher struct {
 	Students  []Student `gorm:"foreignKey:TeacherID"`
 	CreatedAt time.Time `gorm:"column:created_at"`
 	UpdatedAt time.Time `gorm:"column:updated_at"`
-	DeletedAt time.Time `gorm:"index"`
 }
 
 type Student struct {
@@ -64,7 +63,6 @@ type Student struct {
 	TeacherID uint      `gorm:"column:teacher_id"`
 	CreatedAt time.Time `gorm:"column:created_at"`
 	UpdatedAt time.Time `gorm:"column:updated_at"`
-	DeletedAt time.Time `gorm:"index"`
 }
 
 func GetDB() (*gorm.DB, error) {
