@@ -7,5 +7,6 @@ import (
 func main() {
 	//getstarted.FirstGormDemo()
 	//crud.Main()
-	associations.HasOneDemo()
+	//associations.HasOneDemo()
+	associations.HasManyDemo()
 }

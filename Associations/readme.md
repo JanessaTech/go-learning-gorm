@@ -1,3 +1,4 @@
+// ---------------for has-one usage----------------------------------------
 CREATE TABLE employees
 (
 	`id`              INT NOT NULL AUTO_INCREMENT,
@@ -26,6 +27,7 @@ FOREIGN KEY (empoyee_id) REFERENCES employees(`id`)
 ENGINE = InnoDB
 DEFAULT CHARSET = UTF8MB4;
 
+// ---------------for polymorphic usage ----------------------------------------
 CREATE TABLE shapes
 (
 `id`              INT NOT NULL AUTO_INCREMENT,
@@ -63,3 +65,35 @@ PRIMARY KEY (`id`)
 )
 ENGINE = InnoDB
 DEFAULT CHARSET = UTF8MB4;
+
+// --------------for has many usage---------------------------------
+CREATE TABLE teachers
+(
+`id`              INT NOT NULL AUTO_INCREMENT,
+`name`            VARCHAR(125),
+`created_at`      TIMESTAMP NULL,
+`updated_at`      TIMESTAMP NULL,
+`deleted_at`	  TIMESTAMP NULL,
+PRIMARY KEY (`id`)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = UTF8MB4;
+
+CREATE TABLE students
+(
+`id`              INT NOT NULL AUTO_INCREMENT,
+`name`            VARCHAR(125),
+`age`      		  INT,
+`teacher_id`      INT,
+`created_at`      TIMESTAMP NULL,
+`updated_at`      TIMESTAMP NULL,
+`deleted_at`	  TIMESTAMP NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (teacher_id) REFERENCES teachers(`id`)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = UTF8MB4;
+
+insert into teachers(`name`, `created_at`, `updated_at`) values('teacher1', NOW(), NOW());
+insert into students(`name`, `age`, `teacher_id`, `created_at`, `updated_at`) values('student1', 10,  1, NOW(), NOW());
+insert into students(`name`, `age`, `teacher_id`, `created_at`, `updated_at`) values('student2', 11,  1, NOW(), NOW());
