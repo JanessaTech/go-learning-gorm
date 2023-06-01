@@ -97,3 +97,48 @@ DEFAULT CHARSET = UTF8MB4;
 insert into teachers(`name`, `created_at`, `updated_at`) values('teacher1', NOW(), NOW());
 insert into students(`name`, `age`, `teacher_id`, `created_at`, `updated_at`) values('student1', 10,  1, NOW(), NOW());
 insert into students(`name`, `age`, `teacher_id`, `created_at`, `updated_at`) values('student2', 11,  1, NOW(), NOW());
+
+// --------------for many to many usage---------------------------------
+CREATE TABLE humen
+(
+`id`              BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+`name`            VARCHAR(125),
+`created_at`      TIMESTAMP NULL,
+`updated_at`      TIMESTAMP NULL,
+`deleted_at`	  TIMESTAMP NULL,
+PRIMARY KEY (`id`)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = UTF8MB4;
+
+CREATE TABLE `languages`
+(
+`id`              BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+`name`            VARCHAR(125),
+`created_at`      TIMESTAMP NULL,
+`updated_at`      TIMESTAMP NULL,
+`deleted_at`	  TIMESTAMP NULL,
+PRIMARY KEY (`id`)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = UTF8MB4;
+
+CREATE TABLE human_languages
+(
+	`language_id` BIGINT(20) UNSIGNED NOT NULL,
+	`human_id` BIGINT(20) UNSIGNED NOT NULL,
+	PRIMARY KEY (`language_id`,`human_id`),
+	KEY `fk_human_languages_human` (`human_id`),
+	CONSTRAINT `fk_human_languages_human` FOREIGN KEY (`human_id`) REFERENCES `humen` (`id`),
+    CONSTRAINT `fk_human_languages_language` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`)
+)
+ENGINE = InnoDB
+DEFAULT CHARSET = UTF8MB4;
+
+insert into humen(`name`, `created_at`, `updated_at` ) values('Janessa', NOW(), NOW());
+insert into humen(`name`, `created_at`, `updated_at` ) values('yarenty', NOW(), NOW());
+insert into `languages`(`name`, `created_at`, `updated_at` ) values('english', NOW(), NOW());
+insert into `languages`(`name`, `created_at`, `updated_at` ) values('chinese', NOW(), NOW());
+insert into `human_languages`(`language_id`, `human_id`) values(1, 1);
+insert into `human_languages`(`language_id`, `human_id`) values(1, 2);
+insert into `human_languages`(`language_id`, `human_id`) values(2, 1);
