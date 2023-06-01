@@ -8,6 +8,6 @@ func main() {
 	//getstarted.FirstGormDemo()
 	//crud.Main()
 	//associations.HasOneDemo()
-	//associations.HasManyDemo()
-	associations.ManyToManyDemo()
+	associations.HasManyDemo()
+	//associations.ManyToManyDemo()
 }

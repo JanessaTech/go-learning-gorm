@@ -18,7 +18,21 @@ func HasManyGetAll() error {
 	return nil
 }
 
+// For Teacher with id being 1, return students whose age < 12
+func FindAssociationsForOneMany() error {
+	db, err := model.GetDB()
+	if err != nil {
+		return err
+	}
+	var students []model.Student
+
+	error := db.Model(&model.Teacher{ID: 1}).Where("age < ?", 12).Association("Students").Find(&students)
+	fmt.Println(students)
+
+	return error
+}
 func HasManyDemo() {
-	HasManyGetAll()
+	//HasManyGetAll()
+	FindAssociationsForOneMany()
 
 }

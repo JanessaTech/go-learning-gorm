@@ -49,16 +49,22 @@ type Square struct {
 }
 
 type Teacher struct {
-	gorm.Model
-	Name     string    `gorm:"column:name"`
-	Students []Student `gorm:"foreignKey:TeacherID"`
+	ID        uint      `gorm:"column:id;primary_key"`
+	Name      string    `gorm:"column:name"`
+	Students  []Student `gorm:"foreignKey:TeacherID"`
+	CreatedAt time.Time `gorm:"column:created_at"`
+	UpdatedAt time.Time `gorm:"column:updated_at"`
+	DeletedAt time.Time `gorm:"index"`
 }
 
 type Student struct {
-	gorm.Model
-	Name      string `gorm:"column:name"`
-	Age       int    `gorm:"column:age"`
-	TeacherID uint   `gorm:"column:teacher_id"`
+	ID        uint      `gorm:"column:id;primary_key"`
+	Name      string    `gorm:"column:name"`
+	Age       int       `gorm:"column:age"`
+	TeacherID uint      `gorm:"column:teacher_id"`
+	CreatedAt time.Time `gorm:"column:created_at"`
+	UpdatedAt time.Time `gorm:"column:updated_at"`
+	DeletedAt time.Time `gorm:"index"`
 }
 
 func GetDB() (*gorm.DB, error) {
